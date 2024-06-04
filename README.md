@@ -1,11 +1,14 @@
 ## Project title
+"Live" mixing with the Mango Pi
 
 ## Team members
+Joseph Shull and Kevin Chen
 
 ## Project description
 
+
 ## Member contribution
-A short description of the work performed by each member of the team.
+
 
 ## References
 Cite any references/resources that inspired/influenced your project. 

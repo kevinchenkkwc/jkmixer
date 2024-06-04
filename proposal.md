@@ -1,23 +1,39 @@
 ## Title of your project
+"Live" mixing with the Mango Pi
+
 
 ## Team members
+Joseph Shull
+Kevin Chen
 
 ## Project description
-Short description of the basic idea and end goal you are aiming for. 
-Include stretch goals and/or fallback position to indicate how you 
-might fine-tune the project scope if needed.
+We will be adapting the speaker setup Chris demonstrated in the class by also
+implementing a microphone. We hope to be able to efficiently transpose and
+process live audio, and replay it. 
+By using code, we plan to modify the audio, such as adding a voice changer and
+panning the sound.
 
 ## Hardware, budget
-Itemize what hardware, if any, you need and your plan for acquiring it.
-Rough budget for the project. We can reimburse cost of parts up to $20 per person.
+We will be using:
+Electret Microphone Amplifier - MAX9814 with Auto Gain Control
+PCM5102 PCM5102A AUX Stereo Digital Audio DAC Decoder Board
+Adafruit I2S MEMS Microphone Breakout
+
+This adds up to less than the $40 dollar budget.
 
 ## Tasks, member responsibilities
-Each team member should be responsible for a clearly identifiable part of the project.
+Joseph: Soldering, Converting Microphone input with I2S
+
+Kevin: Modulation of the output, UI for the mixer
 
 ## Schedule, midpoint milestones
-What are the one-week goals you plan to meet for next week?
+We plan on finishing soldering and hardware work by Monday.
+By Wednesday, by want to have some solid functionality regarding the microphone,
+and hopefully have a small deliverable.
+By Thursday, we want to make some of the audio modifications, and finalize the
+demo we have prepared.
+On Friday, we hope to be completely done :)
 
 ## Resources needed, issues
-Are there books/code/tools/materials that you need access to? 
-What are the possible risks to overcome? What are you concerned about? 
-How can we help you succeed?
+Chris' Speaker Adaptation, and other online resources for our products, such as
+the datasheets, guides, etc.
