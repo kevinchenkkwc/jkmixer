@@ -4,7 +4,7 @@
 # Link against your libmango + reference libmango (edit LDLIBS, LDFLAGS to change)
 
 PROGRAM = myprogram.bin
-SOURCES = $(PROGRAM:.bin=.c) mymodule.c
+SOURCES = $(PROGRAM:.bin=.c) mymodule.c i2s.c audio.c dma.c
 
 all: $(PROGRAM)
 
