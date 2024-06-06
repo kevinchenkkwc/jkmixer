@@ -7,6 +7,17 @@
 #include "malloc.h"
 #include "dma.h"
 
+
+static struct {
+    int leval;
+    int compression_threshold;
+    int compression_ratio;
+    int backing_track;
+    int legth_of_recording;
+    int echo;
+
+} config;
+
 void main ()
 {
     gpio_init();
@@ -32,14 +43,24 @@ void main ()
             uint16_t *converted_samples = malloc(num_samples * sizeof(uint16_t));
             for (int i = 0; i < num_samples; i++) {
                 converted_samples[i] = audio_samples[i] >> 16;
+                // code to modify
+                //
+                int ratio = 2;
+                if (converted_samples[i] > 0x7fff) {
+                    converted_samples[i] *= ratio;
+                    if (converted_samples[i] > 0x7fff) {
+                        converted_samples[i] = 0x7fff;
+                    }
+                }
+
             }
             free(audio_samples);
             i2s_init();
 
             audio_init(44100, 2, MONO);
 
-            printf("3 second pause...\n");
-            timer_delay_ms(3000);
+            printf("1 second pause...\n");
+            timer_delay_ms(1000);
             printf("starting play\n");
             audio_write_i16_dma(converted_samples, num_samples, 0);
             while (!dma_complete(0)) {
