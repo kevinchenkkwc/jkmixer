@@ -6,7 +6,6 @@
 #include "audio.h"
 #include "printf.h"
 #include "timer.h"
-#include "uart.h"
 #include "gl.c"
 #include "strings.h"
 #include "keyboard.h"
@@ -18,18 +17,20 @@
 #define KNOB_RADIUS 50
 #define NUM_KNOBS 5
 
+#define instructions_counter 1
+
 // Output values
 static struct {
     int level;
     int compression_threshold;
     int compression_ratio;
-    bool backing_track_level; 
+    bool backing_track;
     int length_of_recording;
     bool reverb;
 } config = {
     .level = 0,
     .compression_threshold = 20,
-    .backing_track_level = false,
+    .backing_track = false,
     .length_of_recording = 3,
     .reverb = false
 };
@@ -180,7 +181,7 @@ void draw_value(int selected_knob) {
             gl_draw_string(text_x - (strlen(value_str) * 14) / 2, text_y, value_str, GL_BLACK);
             break;
         case 2:
-            snprintf(value_str, sizeof(value_str), "Backing Track: %s", config.backing_track_level ? "On" : "Off");
+            snprintf(value_str, sizeof(value_str), "Backing Track: %s", config.backing_track ? "On" : "Off");
             gl_draw_string(text_x - (strlen(value_str) * 14) / 2, text_y, value_str, GL_BLACK);
             break;
         case 3:
@@ -263,7 +264,7 @@ void adjust_value(int selected_knob, int direction) {
             else if (direction < 0 && config.compression_threshold > 0) config.compression_threshold -= 5;
             break;
         case 2: // Backing Track
-            if (direction != 0) config.backing_track_level = !config.backing_track_level;
+            if (direction != 0) config.backing_track = !config.backing_track;
             break;
         case 3: // Length
             if (direction > 0 && config.length_of_recording < 10) config.length_of_recording += 1;
@@ -279,37 +280,39 @@ void print_config_values() {
     printf("Current configuration values:\n");
     printf("Level: %d\n", config.level);
     printf("Compression Threshold: %d\n", config.compression_threshold);
-    printf("Backing Track Level: %d\n", config.backing_track_level);
+    printf("Backing Track Level: %d\n", config.backing_track);
     printf("Length of Recording: %d seconds\n", config.length_of_recording);
     printf("Reverb: %d\n", config.reverb);
 }
 
 void run(void) {
     // Initialize
-    keyboard_init(KEYBOARD_CLOCK, KEYBOARD_DATA);
-    gl_init(WIDTH, HEIGHT, GL_DOUBLEBUFFER);
-    uart_init();
+    //keyboard_init(KEYBOARD_CLOCK, KEYBOARD_DATA);
+    //gl_init(WIDTH, HEIGHT, GL_DOUBLEBUFFER);
+    //uart_init();
 
-    // Welcome
-    welcome();
-    next();
+    if (instructions_counter == 0) {
+        // Welcome
+        welcome();
+        next();
 
-    // Instructions
-    base();
-    instructions("Hello! This is the JK Mixer! This is how everything works!");
-    next();
-    base();
-    instructions("Below we have 5 knobs, that control Volume, Compression, Backing Track, Recording Length,  and Reverb!");
-    next();
-    base();
-    instructions("Use the left and right arrows to move along each control, and use the up and down arrows to change the values!");
-    next();
-    base();
-    instructions("Once you're done, press Insert to begin your recording!");
-    next();
-    base();
-    instructions("We hope you enjoy :)");
-    next();
+        // Instructions
+        base();
+        instructions("Hello! This is the JK Mixer! This is how everything works!");
+        next();
+        base();
+        instructions("Below we have 5 knobs, that control Volume, Compression, Backing Track, Recording Length,  and Reverb!");
+        next();
+        base();
+        instructions("Use the left and right arrows to move along each control, and use the up and down arrows to change the values!");
+        next();
+        base();
+        instructions("Once you're done, press Insert to begin your recording!");
+        next();
+        base();
+        instructions("We hope you enjoy :)");
+        next();
+    }
 
     int selected_knob = 0;
 
