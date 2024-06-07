@@ -17,7 +17,7 @@
 #define KNOB_RADIUS 50
 #define NUM_KNOBS 5
 
-#define instructions_counter 1
+#define instructions_counter 0
 
 // Output values
 static struct {
@@ -47,43 +47,42 @@ void wait_for_spacebar() {
 
 void welcome() {
     // Gray
-    gl_clear(gl_color(0x30, 0x30, 0x30)); // create dark gray color 
+    gl_clear(gl_color(0x30, 0x30, 0x30)); 
     // Draw welcome text
     const char *welcome_text = "Welcome to the JK Audio mixer!";
-    int text_x = WIDTH / 2 - (strlen(welcome_text) * 14) / 2; // Adjusted for character width
-    gl_draw_string(text_x, 50, welcome_text, GL_WHITE); // white text
+    int text_x = WIDTH / 2 - (strlen(welcome_text) * 14) / 2; 
+    gl_draw_string(text_x, 50, welcome_text, GL_WHITE);
 
     // Draw press space text
     const char *press_space_text = "Press Space to Continue";
-    int press_space_text_x = WIDTH / 2 - (strlen(press_space_text) * 14) / 2; // Adjusted for character width
-    gl_draw_string(press_space_text_x, HEIGHT - 100, press_space_text, GL_WHITE); // white text
+    int press_space_text_x = WIDTH / 2 - (strlen(press_space_text) * 14) / 2;
+    gl_draw_string(press_space_text_x, HEIGHT - 100, press_space_text, GL_WHITE);
 
     // Center coordinates for the note head
-    int note_head_x = WIDTH / 2 - 50; // Adjusted for better alignment
+    int note_head_x = WIDTH / 2 - 50;
     int note_head_y = HEIGHT / 2;
 
-    // Draw the first note head
+    // Draw first note head
     int note_head_radius = 30;
     gl_draw_circle(note_head_x, note_head_y, note_head_radius, GL_WHITE);
 
-    // Draw the stem (vertical line)
+    // Draw stem
     int stem_height = 100;
     gl_draw_line(note_head_x + note_head_radius, note_head_y, note_head_x + note_head_radius, note_head_y - stem_height, GL_WHITE);
 
-    // Draw the second note head
-    int second_note_head_x = note_head_x + 80; // Adjusted for better alignment
+    // Draw second note head
+    int second_note_head_x = note_head_x + 80;
     gl_draw_circle(second_note_head_x, note_head_y, note_head_radius, GL_WHITE);
 
-    // Draw the stem for the second note head
+    // Draw stem for the second note head
     gl_draw_line(second_note_head_x + note_head_radius, note_head_y, second_note_head_x + note_head_radius, note_head_y - stem_height, GL_WHITE);
 
-    // Draw the beam connecting the two stems
+    // Draw beam connecting the two stems
     gl_draw_line(note_head_x + note_head_radius, note_head_y - stem_height, second_note_head_x + note_head_radius, note_head_y - stem_height, GL_WHITE);
 }
 
 void base() {
-    // Background is dark gray
-    gl_clear(gl_color(0x30, 0x30, 0x30)); // create dark gray color
+    gl_clear(gl_color(0x30, 0x30, 0x30));
 
     // Draw the mixer interface
     int knob_radius = 50;
@@ -98,27 +97,26 @@ void base() {
         int knob_y = HEIGHT / 2;
 
         // Draw the knob circle
-        gl_draw_circle(knob_x, knob_y, knob_radius, gl_color(0x80, 0x80, 0x80)); // light gray knobs
+        gl_draw_circle(knob_x, knob_y, knob_radius, gl_color(0x80, 0x80, 0x80));
 
         // Draw the knob indicator
-        gl_draw_line(knob_x, knob_y, knob_x, knob_y - knob_radius, GL_WHITE); // white indicator
+        gl_draw_line(knob_x, knob_y, knob_x, knob_y - knob_radius, GL_WHITE);
 
         // Draw the label above the knob
-        gl_draw_string(knob_x - (strlen(labels[i-1]) * 14) / 2, knob_y - knob_radius - 20, labels[i-1], GL_WHITE); // white text
+        gl_draw_string(knob_x - (strlen(labels[i-1]) * 14) / 2, knob_y - knob_radius - 20, labels[i-1], GL_WHITE);
     }
 
-    // White rectangle in center of screen for additional interface elements
+    // White rectangle for interface
     gl_draw_rect(WIDTH / 2 - 150, HEIGHT / 2 + 100, 300, 50, GL_WHITE);
 
-    // Draw press enter text
+    // Draw press Insert text
     const char *press_enter_text = "Press Insert to start recording";
-    int press_enter_text_x = WIDTH / 2 - (strlen(press_enter_text) * 14) / 2; // Adjusted for character width
-    gl_draw_string(press_enter_text_x, HEIGHT - 50, press_enter_text, GL_WHITE); // white text
+    int press_enter_text_x = WIDTH / 2 - (strlen(press_enter_text) * 14) / 2;
+    gl_draw_string(press_enter_text_x, HEIGHT - 50, press_enter_text, GL_WHITE);
 }
 
 void draw_knobs(int selected_knob) {
-    // Background is dark gray
-    gl_clear(gl_color(0x30, 0x30, 0x30)); // create dark gray color
+    gl_clear(gl_color(0x30, 0x30, 0x30));
 
     // Draw the mixer interface
     int spacing = WIDTH / (NUM_KNOBS + 1);
@@ -131,35 +129,35 @@ void draw_knobs(int selected_knob) {
         int knob_y = HEIGHT / 2;
 
         // Draw the knob circle
-        gl_draw_circle(knob_x, knob_y, KNOB_RADIUS, gl_color(0x80, 0x80, 0x80)); // light gray knobs
+        gl_draw_circle(knob_x, knob_y, KNOB_RADIUS, gl_color(0x80, 0x80, 0x80));
 
         // Draw the knob indicator
-        gl_draw_line(knob_x, knob_y, knob_x, knob_y - KNOB_RADIUS, GL_WHITE); // white indicator
+        gl_draw_line(knob_x, knob_y, knob_x, knob_y - KNOB_RADIUS, GL_WHITE);
 
         // Draw the label above the knob
-        gl_draw_string(knob_x - (strlen(labels[i-1]) * 14) / 2, knob_y - KNOB_RADIUS - 20, labels[i-1], GL_WHITE); // white text
+        gl_draw_string(knob_x - (strlen(labels[i-1]) * 14) / 2, knob_y - KNOB_RADIUS - 20, labels[i-1], GL_WHITE);
 
         // Draw the selection rectangle border if this knob is selected
         if (i - 1 == selected_knob) {
             int rect_x = knob_x - KNOB_RADIUS - 10;
             int rect_y = knob_y - KNOB_RADIUS - 24;
             int rect_width = 2 * KNOB_RADIUS + 20;
-            int rect_height = 2 * KNOB_RADIUS + 28; // Increased height by 8 pixels
+            int rect_height = 2 * KNOB_RADIUS + 28;
 
-            gl_draw_line(rect_x, rect_y, rect_x + rect_width, rect_y, GL_WHITE); // Top border
-            gl_draw_line(rect_x, rect_y + rect_height, rect_x + rect_width, rect_y + rect_height, GL_WHITE); // Bottom border
-            gl_draw_line(rect_x, rect_y, rect_x, rect_y + rect_height, GL_WHITE); // Left border
-            gl_draw_line(rect_x + rect_width, rect_y, rect_x + rect_width, rect_y + rect_height, GL_WHITE); // Right border
+            gl_draw_line(rect_x, rect_y, rect_x + rect_width, rect_y, GL_WHITE);
+            gl_draw_line(rect_x, rect_y + rect_height, rect_x + rect_width, rect_y + rect_height, GL_WHITE); 
+            gl_draw_line(rect_x, rect_y, rect_x, rect_y + rect_height, GL_WHITE); 
+            gl_draw_line(rect_x + rect_width, rect_y, rect_x + rect_width, rect_y + rect_height, GL_WHITE); 
         }
     }
 
-    // White rectangle in center of screen for additional interface elements
+    // White rectangle for interface
     gl_draw_rect(WIDTH / 2 - 150, HEIGHT / 2 + 100, 300, 50, GL_WHITE);
 
-    // Draw press enter text
+    // Draw press Insert text
     const char *press_enter_text = "Press Insert to start recording";
-    int press_enter_text_x = WIDTH / 2 - (strlen(press_enter_text) * 14) / 2; // Adjusted for character width
-    gl_draw_string(press_enter_text_x, HEIGHT - 50, press_enter_text, GL_WHITE); // white text
+    int press_enter_text_x = WIDTH / 2 - (strlen(press_enter_text) * 14) / 2;
+    gl_draw_string(press_enter_text_x, HEIGHT - 50, press_enter_text, GL_WHITE);
 }
 
 void draw_value(int selected_knob) {
