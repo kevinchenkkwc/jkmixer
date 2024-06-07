@@ -52,7 +52,7 @@ the effort you put into it? the end product? the process you followed?
 what you learned along the way? Tell us about it!
 
 I think we were able to execute our plan really well! We were struggling
-initially with the Microphone Amplifyer and the Microphone, so Chris really came
+initially with the Microphone Amplifier and the Microphone, so Chris really came
 in and saved the day for that.
 
 We have a small list of short-comings and "failed" implementations that we
@@ -87,6 +87,10 @@ In terms of the UI, it was really fun to figure out how to update the config
 structure while also displaying the appropriate knob values, as well as the
 rectangles. While it may not been the most elegant solution, I felt like it
 worked really well with what we were trying to achieve!
+
+As a whole, we tried a very solid library of base features to our mixer, 
+instead of throwing together a bunch applications that we were not satisfied
+with.
 
 ## Photos
 You are encouraged to submit photos/videos of your project in action. 
