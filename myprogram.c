@@ -8,6 +8,8 @@
 #include "dma.h"
 #include "strings.h"
 #include <stdint.h>
+#include "THX.h"
+
 static struct {
     int leval;
     int compression_threshold;
@@ -48,23 +50,23 @@ uint16_t compression(int sample) {
     return sample;
 }
 
-//uint16_t backingtrack(uint16_t sample, int idx) {
-//    if (config.backing_track_leval == -6) {
-//        return sample;
-//    }
-//
-//    int adjustment = config.backing_track_leval * 3000;
-//    int backing = backingtrack[idx];
-//    sample += (backing + adjustment);
-//
-//    if (sample < 0x0) {
-//        return 0x0;
-//    }
-//    if (sample > 0xffff) {
-//        return 0xffff;
-//    }
-//    return ((uint16_t) sample);
-//}
+uint16_t backingtrack(uint16_t sample, int idx) {
+    if (config.backing_track_leval == -6) {
+        return sample;
+    }
+    
+    int adjustment = config.backing_track_leval * 3000;
+    int backing = pcm_data[idx];
+    sample += (backing + adjustment);
+
+    if (sample < 0x0) {
+        return 0x0;
+    }
+    if (sample > 0xffff) {
+        return 0xffff;
+    }
+    return ((uint16_t) sample);
+}
 
 
 void main ()
@@ -117,7 +119,7 @@ void main ()
                     reverb_buffer[i + (44 * 6)] = (int)(converted_samples[i] / 8);
                 } 
 
-                // backing track
+                //backing track
                 //converted_samples[i] = backingtrack(converted_samples[i], i);
                 
                 if (converted_samples[i] < 0x0) {
